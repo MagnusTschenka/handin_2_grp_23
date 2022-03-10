@@ -11,6 +11,10 @@ namespace Ladeskab
 {
     public class StationControl
     {
+        StationControl(IDoor _door)
+        {
+            _door.DoorChangedEvent += HandleDoorStatusChangedEvent; //skal muligvis være "RfidDetected" i stedet for handle..
+        }
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
         {
