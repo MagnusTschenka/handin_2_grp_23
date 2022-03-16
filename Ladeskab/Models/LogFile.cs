@@ -6,6 +6,8 @@ namespace Ladeskab
         public LogFile()
         {
         }
+
+
     }
 }
 

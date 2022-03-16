@@ -5,29 +5,42 @@ namespace Ladeskab
     public class Door : IDoor
     {
         public event EventHandler<DoorChangedEventArgs> DoorChangedEvent;
-        private bool OldDoorStatus;
+        private bool oldDoorStatus;
+        private bool isDoorLocked; //use to check in station control
         public void SetDoorStatus(bool newDoorStatus)
         {
-            if (newDoorStatus != OldDoorStatus)
+            if (newDoorStatus != oldDoorStatus)
             {
-                OnTempChanged(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
-                OldDoorStatus = newDoorStatus;
+                OnDoorChanged(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
+                oldDoorStatus = newDoorStatus;
             }
         }
 
-        protected virtual void OnTempChanged(DoorChangedEventArgs e)
+        protected virtual void OnDoorChanged(DoorChangedEventArgs e)
         {
             DoorChangedEvent?.Invoke(this, e);
         }
 
+        public void simulateDoorBeingOpened()
+        {
+            SetDoorStatus(true);
+        }
+
+        public void simulateDoorBeingClosed()
+        {
+            SetDoorStatus(false);
+        }
+
         public void LockDoor()
         {
-            throw new NotImplementedException();
+            isDoorLocked = true;
+
         }
 
         public void UnlockDoor()
         {
-            throw new NotImplementedException();
+            isDoorLocked = false;
+
         }
     }
 }

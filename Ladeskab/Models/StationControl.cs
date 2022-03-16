@@ -11,10 +11,40 @@ namespace Ladeskab
 {
     public class StationControl
     {
-        StationControl(IDoor _door)
+        StationControl(IDoor _door, IRFIDReader _Rfid)
         {
-            _door.DoorChangedEvent += HandleDoorStatusChangedEvent; //skal muligvis være "RfidDetected" i stedet for handle..
+            _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
+            _Rfid.RfidEventDetected += HandleRfidDetected;
+
         }
+
+        private void HandleRfidDetected(object? sender, RFIDDetectedEventArgs e)
+        {
+            RfidDetected(e.Id);
+        }
+
+        private void HandleDoorStatusChangedEvent(object? sender, DoorChangedEventArgs e)
+        {
+
+            if (!e.DoorStatus) //DoorLocked = true, DoorOpened = False
+            {
+                if (LadeskabState.Available == _state)
+                {
+                    _state = LadeskabState.DoorOpen;
+                    //kald display metode der printer
+                }
+
+            }
+            else if (e.DoorStatus)
+            {
+                if (LadeskabState.DoorOpen == _state)
+                {
+                    _state = LadeskabState.Available;
+                    //kald display metode der printer at dør luk
+                }
+            }
+        }
+
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
         {

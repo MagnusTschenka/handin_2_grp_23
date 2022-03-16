@@ -6,6 +6,20 @@ namespace Ladeskab
         public RFIDReader()
         {
         }
+
+        public void SetDoorStatus(bool newDoorStatus)
+        {
+            if (newDoorStatus != DoorLocked)
+            {
+                OnTempChanged(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
+                DoorLocked = newDoorStatus;
+            }
+        }
+
+        protected virtual void OnTempChanged(DoorChangedEventArgs e)
+        {
+            DoorChangedEvent?.Invoke(this, e);
+        }
     }
 }
 
