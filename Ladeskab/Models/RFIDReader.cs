@@ -1,25 +1,33 @@
 ﻿using System;
+using Ladeskab.Interfaces;
+
 namespace Ladeskab
 {
-    public class RFIDReader
+    public class RFIDReader : IRFIDReader
     {
+        private int ID;
+        public event EventHandler<RFIDDetectedEventArgs> RfidEventDetected;
+
+
         public RFIDReader()
         {
         }
 
-        public void SetDoorStatus(bool newDoorStatus)
+        public void SetRFIDStatus(int id)
         {
-            if (newDoorStatus != DoorLocked)
-            {
-                OnTempChanged(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
-                DoorLocked = newDoorStatus;
-            }
+             OnRFIDApplied(new RFIDDetectedEventArgs { Id = id });
         }
 
-        protected virtual void OnTempChanged(DoorChangedEventArgs e)
+        protected virtual void OnRFIDApplied(RFIDDetectedEventArgs e)
         {
-            DoorChangedEvent?.Invoke(this, e);
+            RfidEventDetected?.Invoke(this, e);
         }
+
+        public void SimulateRFIDCardApplied(int id_)
+        {
+            SetRFIDStatus(id_);
+        }
+
     }
 }
 

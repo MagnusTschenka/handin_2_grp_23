@@ -8,6 +8,8 @@ namespace Ladeskab.Interfaces
     }
     public interface IDoor
     {
+        void simulateDoorBeingClosed();
+        void simulateDoorBeingOpened();
         void LockDoor();
         void UnlockDoor();
 

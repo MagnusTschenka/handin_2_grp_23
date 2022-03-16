@@ -8,8 +8,8 @@ namespace Ladeskab.Interfaces
     }
     public interface IRFIDReader
     {
-        public int SimulateRFIDCardApplied();
-        event EventHandler<DoorChangedEventArgs> RfidEventDetected;
+        public void SimulateRFIDCardApplied(int id_);
+        event EventHandler<RFIDDetectedEventArgs> RfidEventDetected;
 
     }
 }
