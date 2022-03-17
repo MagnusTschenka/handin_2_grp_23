@@ -25,24 +25,8 @@ namespace Ladeskab
 
         private void HandleDoorStatusChangedEvent(object? sender, DoorChangedEventArgs e)
         {
+            DoorChangedDetected(e.DoorStatus);
 
-            if (!e.DoorStatus) //DoorLocked = true, DoorOpened = False
-            {
-                if (LadeskabState.Available == _state)
-                {
-                    _state = LadeskabState.DoorOpen;
-                    //kald display metode der printer
-                }
-
-            }
-            else if (e.DoorStatus)
-            {
-                if (LadeskabState.DoorOpen == _state)
-                {
-                    _state = LadeskabState.Available;
-                    //kald display metode der printer at dør luk
-                }
-            }
         }
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
@@ -116,7 +100,26 @@ namespace Ladeskab
                     break;
             }
         }
+        private void DoorChangedDetected(bool DoorStatus)
+        {
+            if (!DoorStatus) //DoorClosed = true, DoorOpened = False
+            {
+                if (LadeskabState.Available == _state)
+                {
+                    _state = LadeskabState.DoorOpen;
+                    //kald display metode der printer
+                }
 
+            }
+            else if (DoorStatus)
+            {
+                if (LadeskabState.DoorOpen == _state)
+                {
+                    _state = LadeskabState.Available;
+                    //kald display metode der printer at dør luk
+                }
+            }
+        }
         // Her mangler de andre trigger handlere
     }
 }
