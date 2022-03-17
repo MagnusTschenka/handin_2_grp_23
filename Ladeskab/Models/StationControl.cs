@@ -11,23 +11,6 @@ namespace Ladeskab
 {
     public class StationControl
     {
-        StationControl(IDoor _door, IRFIDReader _Rfid)
-        {
-            _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
-            _Rfid.RfidEventDetected += HandleRfidDetected;
-
-        }
-
-        private void HandleRfidDetected(object? sender, RFIDDetectedEventArgs e)
-        {
-            RfidDetected(e.Id);
-        }
-
-        private void HandleDoorStatusChangedEvent(object? sender, DoorChangedEventArgs e)
-        {
-            DoorChangedDetected(e.DoorStatus);
-
-        }
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
         private enum LadeskabState
@@ -46,6 +29,24 @@ namespace Ladeskab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
+        StationControl(IDoor _door, IRFIDReader _Rfid)
+        {
+            _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
+            _Rfid.RfidEventDetected += HandleRfidDetected;
+
+        }
+
+        private void HandleRfidDetected(object? sender, RFIDDetectedEventArgs e)
+        {
+            RfidDetected(e.Id);
+        }
+
+        private void HandleDoorStatusChangedEvent(object? sender, DoorChangedEventArgs e)
+        {
+            DoorChangedDetected(e.DoorStatus);
+
+        }
+
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
