@@ -100,25 +100,45 @@ namespace Ladeskab
                     break;
             }
         }
+
         private void DoorChangedDetected(bool DoorStatus)
         {
-            if (!DoorStatus) //DoorClosed = true, DoorOpened = False
+            switch (DoorStatus)
             {
-                if (LadeskabState.Available == _state)
-                {
-                    _state = LadeskabState.DoorOpen;
-                    //kald display metode der printer
-                }
+                case false:
+                    if (LadeskabState.Available == _state)
+                    {
+                        _state = LadeskabState.DoorOpen;
+                        //kald display metode der printer
+                    }
+                    break;
+                case true:
+                    if (LadeskabState.DoorOpen == _state)
+                    {
+                        _state = LadeskabState.Available;
+                        //kald display metode der printer at dør luk
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //if (!DoorStatus) //DoorClosed = true, DoorOpened = False
+            //{
+            //    if (LadeskabState.Available == _state)
+            //    {
+            //        _state = LadeskabState.DoorOpen;
+            //        //kald display metode der printer
+            //    }
 
-            }
-            else if (DoorStatus)
-            {
-                if (LadeskabState.DoorOpen == _state)
-                {
-                    _state = LadeskabState.Available;
-                    //kald display metode der printer at dør luk
-                }
-            }
+            //}
+            //else if (DoorStatus)
+            //{
+            //    if (LadeskabState.DoorOpen == _state)
+            //    {
+            //        _state = LadeskabState.Available;
+            //        //kald display metode der printer at dør luk
+            //    }
+            //}
         }
         // Her mangler de andre trigger handlere
     }
