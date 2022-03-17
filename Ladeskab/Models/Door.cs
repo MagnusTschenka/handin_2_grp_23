@@ -42,6 +42,16 @@ namespace Ladeskab
             isDoorLocked = false;
 
         }
+
+        public bool GetDoorLockedStatus()
+        {
+            return isDoorLocked;
+        }
+        
+        public bool GetDoorStatus()
+        {
+            return oldDoorStatus;
+        }
     }
 }
 
