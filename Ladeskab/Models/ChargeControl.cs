@@ -5,8 +5,13 @@ namespace Ladeskab
 {
     public class ChargeControl : IChargeControl
     {
-        public ChargeControl() 
+        private IUsbCharger _usbCharger;
+        private IDisplay _display;
+
+        public ChargeControl(IUsbCharger usbCharger, IDisplay display) 
         {
+            _usbCharger = usbCharger;
+            _display = display;
             usbCharger.CurrentValueEvent += handleNewCurrent;
 
 
@@ -34,7 +39,7 @@ namespace Ladeskab
             else if(current > 500)
             {
                 _usbCharger.StopCharge();
-                _display.PrintOverChargedError();
+                _display.PrintOverchargeError();
 
             }
         }
