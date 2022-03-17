@@ -16,7 +16,8 @@ namespace LadeskabUnitTest
         public void Setup()
         {
             _fakeRFIDRead = Substitute.For<IRFIDReader>();
-            _
+            _fakeDoor = Substitute.For<IDoor>();
+            _uut = new StationControl(_fakeDoor, _fakeRFIDRead);
         }
     }
 }

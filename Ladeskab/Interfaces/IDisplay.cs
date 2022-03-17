@@ -9,6 +9,9 @@ namespace Ladeskab.Interfaces
         public void PrintRFIDError();
         public void PrintOccupied();
         public void PrintRemovedPhone();
+        public void PrintFullyCharged();
+        public void PrintCurrentlyCharging();
+        public void PrintOverchargeError();
     }
 }
 

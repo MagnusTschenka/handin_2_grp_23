@@ -5,11 +5,12 @@ namespace Ladeskab
 {
     public class ChargeControl : IChargeControl
     {
-        public ChargeControl()
+        public ChargeControl() 
         {
         }
 
         public bool Connected { get; set; }
+
 
        public void SimulatePhoneConnected(bool phone)
         {

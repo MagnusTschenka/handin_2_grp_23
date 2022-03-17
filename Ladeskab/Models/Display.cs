@@ -20,6 +20,16 @@ namespace Ladeskab
             Console.WriteLine("Tilsut telefon");
         }
 
+        public void PrintCurrentlyCharging()
+        {
+            Console.WriteLine("Telefonen er igang med at oplade");
+        }
+
+        public void PrintFullyCharged()
+        {
+            Console.WriteLine("Telefon er fuldt opladet og kan nu fjernes");
+        }
+
         public void PrintLoadRFID()
         {
             Console.WriteLine("Indlæs RFID");
@@ -29,6 +39,11 @@ namespace Ladeskab
         public void PrintOccupied()
         {
             Console.WriteLine("Ladeskab optaget");
+        }
+
+        public void PrintOverchargeError()
+        {
+            Console.WriteLine("Teknisk fejl, fjern venligst telefon!");
         }
 
         public void PrintRemovedPhone()
