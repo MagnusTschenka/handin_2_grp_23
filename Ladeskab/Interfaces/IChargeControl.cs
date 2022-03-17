@@ -3,7 +3,7 @@ namespace Ladeskab.Interfaces
 {
     public interface IChargeControl
     {
-        public bool Connected { get; set; }
+        public bool IsConnected { get; set; }
 
         void SimulatePhoneConnected(bool phone);
         void StartCharge();

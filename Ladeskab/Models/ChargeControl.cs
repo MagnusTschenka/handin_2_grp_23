@@ -9,11 +9,11 @@ namespace Ladeskab
         {
         }
 
-        public bool Connected { get; set; }
+        public bool IsConnected { get; set; }
 
        public void SimulatePhoneConnected(bool phone)
         {
-            Connected = phone;
+            IsConnected = phone;
         }
         public void StartCharge()
         {
