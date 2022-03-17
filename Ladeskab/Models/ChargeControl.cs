@@ -11,6 +11,10 @@ namespace Ladeskab
 
         public bool Connected { get; set; }
 
+       public void SimulatePhoneConnected(bool phone)
+        {
+            Connected = phone;
+        }
         public void StartCharge()
         {
             throw new NotImplementedException();
@@ -20,6 +24,8 @@ namespace Ladeskab
         {
             throw new NotImplementedException();
         }
+
+    
     }
 }
 
