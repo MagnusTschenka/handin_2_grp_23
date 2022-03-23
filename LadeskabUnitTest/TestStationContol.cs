@@ -20,13 +20,21 @@ namespace LadeskabUnitTest
             _uut = new StationControl(_fakeDoor, _fakeRFIDRead);
         }
 
+        //void TestDoorOpenedCorrect()
+        //{
+        //    _uut.DoorOpened();
+        //    Assert.That(uut_.LadeskabState, Is.EqualTo();
+        //}
+
+
+        //skal sikkert bare slettes
         //[TestCase(true)]
         //[TestCase(false)]
 
         //void TestDoorOpenedCorrect(bool newDoorStatus)
         //{
         //    _fakeDoor.DoorChangedEvent += Raise.EventWith(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
-        //    Assert.That(_uut , Is.EqualTo(newDoorStatus));
+        //    Assert.That(_uut., Is.EqualTo(newDoorStatus));
 
         //}
     }
