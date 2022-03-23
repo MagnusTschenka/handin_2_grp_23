@@ -102,6 +102,18 @@ namespace Ladeskab
             }
         }
 
+        public void DoorOpened()
+        {
+            _state = LadeskabState.DoorOpen;
+            _display.PrintConnectPhone();
+        }
+
+        public void DoorClosed()
+        {
+            _state = LadeskabState.Available;
+            _display.PrintLoadRFID();
+        }
+
         private void DoorChangedDetected(bool DoorStatus)
         {
             switch (DoorStatus)
@@ -109,17 +121,13 @@ namespace Ladeskab
                 case false:
                     if (LadeskabState.Available == _state)
                     {
-                        _state = LadeskabState.DoorOpen; //er det her ikke omvendt?
-                        _display.PrintConnectPhone();
-                        //kald display metode der printer
+                        DoorOpened();
                     }
                     break;
                 case true:
                     if (LadeskabState.DoorOpen == _state)
                     {
-                        _state = LadeskabState.Available;
-                        _display.PrintLoadRFID();
-                        //kald display metode der printer at dør luk
+                        DoorClosed();                     
                     }
                     break;
                 default:
