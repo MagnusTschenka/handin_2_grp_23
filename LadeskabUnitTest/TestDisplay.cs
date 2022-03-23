@@ -18,7 +18,7 @@ namespace LadeskabUnitTest
         [Test]
         public void Test_Print_Statement_PrintConnectionError()
         {
-            Assert.That()
+            //Assert.That();
         }
     }
 }
