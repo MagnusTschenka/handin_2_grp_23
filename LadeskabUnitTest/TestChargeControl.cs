@@ -72,7 +72,7 @@ namespace LadeskabUnitTest
         {
             _fakeUSBCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = curr });
             _fakeDisplay.Received().PrintOverchargeError();
-            _uut.Received().StopCharge();
+            _fakeUSBCharger.Received().StopCharge();
         }
 
 
@@ -94,13 +94,13 @@ namespace LadeskabUnitTest
         public void StartChargeCalledFromChargeControl_Recieved_In_UsbCharger()
         {
             _uut.StartCharge();
-            _fakeUSBCharger.Received().StopCharge();
+            _fakeUSBCharger.Received().StartCharge();
         }
 
         [Test]
         public void StopChargeCalledFromChargeControl_Recieved_In_UsbCharger()
         {
-            _uut.StartCharge();
+            _uut.StopCharge();
             _fakeUSBCharger.Received().StopCharge();
         }
 

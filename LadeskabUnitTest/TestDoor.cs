@@ -6,7 +6,7 @@ namespace LadeskabUnitTest
 {
 
     [TestFixture]
-    public class Tests
+    public class TestsDoor
     {
         private Door _uut;
         private DoorChangedEventArgs _uutRecievedEventArgs;
@@ -17,7 +17,7 @@ namespace LadeskabUnitTest
             _uutRecievedEventArgs = null;
 
             _uut = new Door();
-            _uut.SetDoorStatus(true);
+            _uut.SetDoorStatus(false);
 
             _uut.DoorChangedEvent += (o, args) => { _uutRecievedEventArgs = args; };
         }
@@ -49,16 +49,10 @@ namespace LadeskabUnitTest
 
         //test af events uden Nsubstitute
         [Test]
-        public void TestSetDoorStatusEvent_NotFired()
-        {
-            _uut.SetDoorStatus(true);
-            Assert.That(_uutRecievedEventArgs, Is.True);
-        }
-        [Test]
         public void TestSetDoorStatusEvent_Fired()
         {
-            _uut.SetDoorStatus(false);
-            Assert.That(_uutRecievedEventArgs, Is.False);
+            _uut.SetDoorStatus(true);
+            Assert.That(_uutRecievedEventArgs, Is.Not.Null);
         }
         [Test]
         public void TestSetDoorStatusEvent_CorrectDoorStatus()
@@ -70,6 +64,7 @@ namespace LadeskabUnitTest
         public void TestSetDoorStatusEvent_IncorretDoorStatus()
         {
             _uut.SetDoorStatus(true);
+            _uut.SetDoorStatus(false);
             Assert.That(_uutRecievedEventArgs.DoorStatus, Is.False);
         }
         
