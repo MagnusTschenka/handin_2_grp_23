@@ -39,9 +39,8 @@ namespace Ladeskab
             }
             else if(current > 500)
             {
-                _usbCharger.StopCharge();
+                StopCharge();
                 _display.PrintOverchargeError();
-
             }
         }
 
@@ -54,12 +53,12 @@ namespace Ladeskab
         }
         public void StartCharge()
         {
-            throw new NotImplementedException();
+            _usbCharger.StartCharge();
         }
 
         public void StopCharge()
         {
-            throw new NotImplementedException();
+            _usbCharger.StopCharge();
         }
 
     }
