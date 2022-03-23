@@ -35,6 +35,8 @@ namespace Ladeskab
         // Her mangler constructor
         public StationControl(IDoor door, IRFIDReader Rfid, IDisplay display, IChargeControl chargeControl)
         {
+            _door = door;
+            _Rfid = Rfid;
             _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
             _Rfid.RfidEventDetected += HandleRfidDetected;
             _charger = chargeControl;

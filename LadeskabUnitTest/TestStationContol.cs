@@ -9,11 +9,11 @@ namespace LadeskabUnitTest
 {
     public class TestStationContol
     {
-        StationControl _uut;
-        IRFIDReader _fakeRFIDRead;
-        IDoor _fakeDoor;
-        IChargeControl _fakeChargeControl;
-        IDisplay _fakeDisplay;
+        private StationControl _uut;
+        private IRFIDReader _fakeRFIDRead;
+        private IDoor _fakeDoor;
+        private IChargeControl _fakeChargeControl;
+        private IDisplay _fakeDisplay;
 
         [SetUp]
         public void Setup()
@@ -27,7 +27,7 @@ namespace LadeskabUnitTest
             _uut = new StationControl(_fakeDoor, _fakeRFIDRead, _fakeDisplay, _fakeChargeControl);
         }
         [Test]
-        void TestDoorOpenedCorrect()
+        public void TestDoorOpenedCorrect()
         {
            //test af doorchanged event == false
             _fakeDoor.DoorChangedEvent += Raise.EventWith(new DoorChangedEventArgs() {DoorStatus = false});
@@ -36,7 +36,7 @@ namespace LadeskabUnitTest
             _fakeDisplay.Received().PrintConnectPhone(); //received er en assert i sig selv
         }
         [Test]
-        void TestDoorClosedCorrect()
+        public void TestDoorClosedCorrect()
         {
             //test af doorchanged event == true
             _fakeDoor.DoorChangedEvent += Raise.EventWith(new DoorChangedEventArgs() { DoorStatus = false });
@@ -48,7 +48,7 @@ namespace LadeskabUnitTest
 
 
         [Test]
-        void TestRfidDetectedAvailableLockDoor()
+        public void TestRfidDetectedAvailableLockDoor()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() {Id = 69});
@@ -56,7 +56,7 @@ namespace LadeskabUnitTest
         }
 
         [Test]
-        void TestRfidDetectedAvailableStartCharge()
+        public void TestRfidDetectedAvailableStartCharge()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
@@ -66,7 +66,7 @@ namespace LadeskabUnitTest
         }
 
         [Test]
-        void TestRfidDetectedAvailableAppendLogfile()
+        public void TestRfidDetectedAvailableAppendLogfile()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
@@ -82,7 +82,7 @@ namespace LadeskabUnitTest
         }
 
 
-        void TestRfidDetectedAvailableLockedID()
+        public void TestRfidDetectedAvailableLockedID()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
@@ -98,7 +98,7 @@ namespace LadeskabUnitTest
 
         }
 
-        void TestRfidDetectedAvailableOldEqualNewIDStopCharge()
+        public void TestRfidDetectedAvailableOldEqualNewIDStopCharge()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
@@ -108,7 +108,7 @@ namespace LadeskabUnitTest
 
         }
 
-        void TestRfidDetectedAvailableOldEqualNewIDUnlock()
+        public void TestRfidDetectedAvailableOldEqualNewIDUnlock()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
@@ -119,7 +119,7 @@ namespace LadeskabUnitTest
 
         }
 
-        void TestRfidDetectedAvailableOldEqualNewIDLogFile()
+        public void TestRfidDetectedAvailableOldEqualNewIDLogFile()
         {
             _fakeChargeControl.SimulatePhoneConnected(true);
             _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
