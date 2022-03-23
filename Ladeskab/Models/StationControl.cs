@@ -29,7 +29,7 @@ namespace Ladeskab
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        StationControl(IDoor _door, IRFIDReader _Rfid)
+        public StationControl(IDoor _door, IRFIDReader _Rfid)
         {
             _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
             _Rfid.RfidEventDetected += HandleRfidDetected;
