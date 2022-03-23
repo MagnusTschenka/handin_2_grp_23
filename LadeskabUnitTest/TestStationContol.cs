@@ -8,9 +8,9 @@ namespace LadeskabUnitTest
 {
     public class TestStationContol
     {
-        StationControl _uut;
-        IRFIDReader _fakeRFIDRead;
-        IDoor _fakeDoor;
+        private StationControl _uut;
+        private IRFIDReader _fakeRFIDRead;
+        private IDoor _fakeDoor;
 
         [SetUp]
         public void Setup()
@@ -19,6 +19,16 @@ namespace LadeskabUnitTest
             _fakeDoor = Substitute.For<IDoor>();
             _uut = new StationControl(_fakeDoor, _fakeRFIDRead);
         }
+
+        //[TestCase(true)]
+        //[TestCase(false)]
+
+        //void TestDoorOpenedCorrect(bool newDoorStatus)
+        //{
+        //    _fakeDoor.DoorChangedEvent += Raise.EventWith(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
+        //    Assert.That(_uut. , Is.EqualTo(newDoorStatus));
+
+        //}
     }
 }
 

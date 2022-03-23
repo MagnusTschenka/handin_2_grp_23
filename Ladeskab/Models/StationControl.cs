@@ -25,11 +25,12 @@ namespace Ladeskab
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
+        private IDisplay _display;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        StationControl(IDoor _door, IRFIDReader _Rfid)
+        public StationControl(IDoor _door, IRFIDReader _Rfid)
         {
             _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
             _Rfid.RfidEventDetected += HandleRfidDetected;
@@ -72,7 +73,6 @@ namespace Ladeskab
                     {
                         Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
-
                     break;
 
                 case LadeskabState.DoorOpen:
@@ -109,7 +109,8 @@ namespace Ladeskab
                 case false:
                     if (LadeskabState.Available == _state)
                     {
-                        _state = LadeskabState.DoorOpen;
+                        _state = LadeskabState.DoorOpen; //er det her ikke omvendt?
+                        _display.PrintConnectPhone();
                         //kald display metode der printer
                     }
                     break;
@@ -117,29 +118,13 @@ namespace Ladeskab
                     if (LadeskabState.DoorOpen == _state)
                     {
                         _state = LadeskabState.Available;
+                        _display.PrintLoadRFID();
                         //kald display metode der printer at dør luk
                     }
                     break;
                 default:
                     break;
             }
-            //if (!DoorStatus) //DoorClosed = true, DoorOpened = False
-            //{
-            //    if (LadeskabState.Available == _state)
-            //    {
-            //        _state = LadeskabState.DoorOpen;
-            //        //kald display metode der printer
-            //    }
-
-            //}
-            //else if (DoorStatus)
-            //{
-            //    if (LadeskabState.DoorOpen == _state)
-            //    {
-            //        _state = LadeskabState.Available;
-            //        //kald display metode der printer at dør luk
-            //    }
-            //}
         }
         // Her mangler de andre trigger handlere
     }
