@@ -14,7 +14,6 @@ namespace LadeskabUnitTest
             _uut = new Display();
         }
 
-
         [Test]
         public void Test_Print_Statement_PrintConnectionError()
         {
