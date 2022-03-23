@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using NUnit.Framework;
 using Ladeskab;
 using NSubstitute;
@@ -10,7 +11,6 @@ namespace LadeskabUnitTest
     {
         //oprettelse af objekter
         private Display _uut = null;
-        private ChargeControl _chargeControl = null;
 
 
 
@@ -19,35 +19,146 @@ namespace LadeskabUnitTest
         public void Setup()
         {
             _uut = new Display();
-
-
-            //opretter en instans af en "fake/mock" der kan påvirke displayet. 
-            _chargeControl = Substitute.For<ChargeControl>(_uut);
-           
         }
+
+
 
         [Test]
         public void Test_Print_Statement_PrintConnectionError()
         {
-            //laver en simpel test på default-værdien for display. Umiddelbart
-            //returneres ingenting.
-            //Assert.That(_uut.RunSelfTest().Returns(Test_Print_Statement_PrintConnectionError()));
+            //arrange
+            var expected = "Tilslutningsfejl";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
 
-            _chargeControl.Connected.Returns(false);
-            Assert.IsFalse(_uut.Returns());
+            //act
+            _uut.PrintConnectionError();
 
-
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
         }
 
 
-                //*** Indsat fra slides til inspiration med en mock***
 
-        //[Test]
-        //public void DoorBreached_DoorStateIsBreached_AlarmCalled()
-        //{
-        //    _uut.DoorOpened();  // Breach door
-        //    Assert.That(_mockFactory.Alarm.WasAlarmCalled, Is.True);
-        //}
+        [Test]
+        public void Test_Print_Statement_PrintConnectPhone()
+        {
+            //arrange
+            var expected = "Tilsut telefon";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintConnectPhone();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintCurrentlyCharging()
+        {
+            //arrange
+            var expected = "Telefonen er igang med at oplade";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintCurrentlyCharging();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintFullyCharged()
+        {
+            //arrange
+            var expected = "Telefon er fuldt opladet og kan nu fjernes";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintFullyCharged();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintLoadRFID()
+        {
+            //arrange
+            var expected = "Telefon er fuldt opladet og kan nu fjernes";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintLoadRFID();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintOccupied()
+        {
+            //arrange
+            var expected = "Ladeskab optaget";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintOccupied();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintOverchargeError()
+        {
+            //arrange
+            var expected = "Teknisk fejl, fjern venligst telefon!";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintOverchargeError();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintRemovedPhone()
+        {
+            //arrange
+            var expected = "Fjern telefon";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintRemovedPhone();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void Test_Print_Statement_PrintRFIDError()
+        {
+            //arrange
+            var expected = "RFID fejl";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintRFIDError();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
 
 
     }
