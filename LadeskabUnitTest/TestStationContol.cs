@@ -130,16 +130,7 @@ namespace LadeskabUnitTest
 
         }
 
-        //skal sikkert bare slettes
-        //[TestCase(true)]
-        //[TestCase(false)]
-
-        void TestDoorOpenedCorrect(bool newDoorStatus)
-        {
-            _fakeDoor.DoorChangedEvent += Raise.EventWith(new DoorChangedEventArgs { DoorStatus = newDoorStatus });
-            Assert.That(_uut., Is.EqualTo(newDoorStatus));
-
-        }
+      
     }
 }
 
