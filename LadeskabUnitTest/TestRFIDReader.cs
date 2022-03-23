@@ -22,7 +22,7 @@ namespace LadeskabUnitTest
         public void Test_RFID_Event()
         {
             var wasCalled = false;
-            _uut.SetRFIDStatus += (o, e) => wasCalled = true;
+            //_uut.SetRFIDStatus += (o, e) => wasCalled = true;
         }
 
     }

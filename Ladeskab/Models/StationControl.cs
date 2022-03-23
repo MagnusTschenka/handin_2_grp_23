@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Ladeskab.Interfaces;
@@ -20,19 +21,25 @@ namespace Ladeskab
             DoorOpen
         };
 
+      
         // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
+        private IDisplay _displayerDisplay;
+        private IRFIDReader _Rfid;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor _door, IRFIDReader _Rfid)
+        public StationControl(IDoor door, IRFIDReader Rfid, IDisplay display, IChargeControl chargeControl)
         {
             _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
             _Rfid.RfidEventDetected += HandleRfidDetected;
+            _charger = chargeControl;
+            _displayerDisplay = display;
+            _state = LadeskabState.Available;
 
         }
 
@@ -110,14 +117,14 @@ namespace Ladeskab
                     if (LadeskabState.Available == _state)
                     {
                         _state = LadeskabState.DoorOpen;
-                        //kald display metode der printer
+                        _displayerDisplay.PrintConnectPhone();
                     }
                     break;
                 case true:
                     if (LadeskabState.DoorOpen == _state)
                     {
                         _state = LadeskabState.Available;
-                        //kald display metode der printer at dør luk
+                        _displayerDisplay.PrintLoadRFID();
                     }
                     break;
                 default:
