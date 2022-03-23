@@ -25,12 +25,11 @@ namespace Ladeskab
         private IChargeControl _charger;
         private int _oldId;
         private IDoor _door;
-        private IDisplay _display;
 
         private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor _door, IRFIDReader _Rfid)
+        StationControl(IDoor _door, IRFIDReader _Rfid)
         {
             _door.DoorChangedEvent += HandleDoorStatusChangedEvent;
             _Rfid.RfidEventDetected += HandleRfidDetected;
@@ -73,6 +72,7 @@ namespace Ladeskab
                     {
                         Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
                     }
+
                     break;
 
                 case LadeskabState.DoorOpen:
@@ -102,18 +102,6 @@ namespace Ladeskab
             }
         }
 
-        public void DoorOpened()
-        {
-            _state = LadeskabState.DoorOpen;
-            _display.PrintConnectPhone();
-        }
-
-        public void DoorClosed()
-        {
-            _state = LadeskabState.Available;
-            _display.PrintLoadRFID();
-        }
-
         private void DoorChangedDetected(bool DoorStatus)
         {
             switch (DoorStatus)
@@ -121,18 +109,37 @@ namespace Ladeskab
                 case false:
                     if (LadeskabState.Available == _state)
                     {
-                        DoorOpened();
+                        _state = LadeskabState.DoorOpen;
+                        //kald display metode der printer
                     }
                     break;
                 case true:
                     if (LadeskabState.DoorOpen == _state)
                     {
-                        DoorClosed();                     
+                        _state = LadeskabState.Available;
+                        //kald display metode der printer at dør luk
                     }
                     break;
                 default:
                     break;
             }
+            //if (!DoorStatus) //DoorClosed = true, DoorOpened = False
+            //{
+            //    if (LadeskabState.Available == _state)
+            //    {
+            //        _state = LadeskabState.DoorOpen;
+            //        //kald display metode der printer
+            //    }
+
+            //}
+            //else if (DoorStatus)
+            //{
+            //    if (LadeskabState.DoorOpen == _state)
+            //    {
+            //        _state = LadeskabState.Available;
+            //        //kald display metode der printer at dør luk
+            //    }
+            //}
         }
         // Her mangler de andre trigger handlere
     }

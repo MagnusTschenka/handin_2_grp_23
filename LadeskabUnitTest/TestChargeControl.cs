@@ -29,10 +29,10 @@ namespace LadeskabUnitTest
         [Test]
         public void NewCurrentDetected_Current_LessThanOrEquals_0()
         {
-            _fakeUSBCharger.CurrentValue.Returns(0);
+            _fakeUSBCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = 0 });
 
             _fakeDisplay.DidNotReceive().PrintConnectionError();
-            
+
         }
 
         [TestCase(0.1)]
@@ -44,7 +44,7 @@ namespace LadeskabUnitTest
         [Test]
         public void NewCurrentDetected_Current_GreaterThan0_and_LessThanOrEqual5(double curr)
         {
-            _fakeUSBCharger.CurrentValue.Returns(curr);
+            _fakeUSBCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = curr });
             _fakeDisplay.Received().PrintFullyCharged();
         }
 
@@ -59,7 +59,8 @@ namespace LadeskabUnitTest
         [Test]
         public void NewCurrentDetected_Current_GreaterThan5_and_LessThanOrEqual500(double curr)
         {
-            _fakeUSBCharger.CurrentValue.Returns(curr);
+            //_fakeUSBCharger.CurrentValue.Returns(curr);
+            _fakeUSBCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = curr });
             _fakeDisplay.Received().PrintCurrentlyCharging();
         }
 
@@ -69,7 +70,7 @@ namespace LadeskabUnitTest
         [Test]
         public void NewCurrentDetected_Current_GreaterThan500(double curr)
         {
-            _fakeUSBCharger.CurrentValue.Returns(curr);
+            _fakeUSBCharger.CurrentValueEvent += Raise.EventWith(new CurrentEventArgs { Current = curr });
             _fakeDisplay.Received().PrintOverchargeError();
             _uut.Received().StopCharge();
         }
@@ -88,6 +89,21 @@ namespace LadeskabUnitTest
             _uut.SimulatePhoneConnected(false);
             Assert.That(_uut.Connected, Is.EqualTo(false));
         }
+
+        [Test]
+        public void StartChargeCalledFromChargeControl_Recieved_In_UsbCharger()
+        {
+            _uut.StartCharge();
+            _fakeUSBCharger.Received().StopCharge();
+        }
+
+        [Test]
+        public void StopChargeCalledFromChargeControl_Recieved_In_UsbCharger()
+        {
+            _uut.StartCharge();
+            _fakeUSBCharger.Received().StopCharge();
+        }
+
     }
 }
 

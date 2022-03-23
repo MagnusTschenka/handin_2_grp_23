@@ -18,12 +18,12 @@ namespace LadeskabUnitTest
         }
 
 
-        //[Test]
-        //public void Test_RFID_Event()
-        //{
-        //    var wasCalled = false;
-        //    _uut.SetRFIDStatus += (o, e) => wasCalled = true;
-        //}
+        [Test]
+        public void Test_RFID_Event()
+        {
+            var wasCalled = false;
+            _uut.SetRFIDStatus += (o, e) => wasCalled = true;
+        }
 
     }
 }

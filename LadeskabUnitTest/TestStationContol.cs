@@ -8,9 +8,9 @@ namespace LadeskabUnitTest
 {
     public class TestStationContol
     {
-        private StationControl _uut;
-        private IRFIDReader _fakeRFIDRead;
-        private IDoor _fakeDoor;
+        StationControl _uut;
+        IRFIDReader _fakeRFIDRead;
+        IDoor _fakeDoor;
 
         [SetUp]
         public void Setup()
