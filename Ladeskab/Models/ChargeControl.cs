@@ -7,17 +7,18 @@ namespace Ladeskab
     {
         private IUsbCharger _usbCharger;
         private IDisplay _display;
+        public bool Connected { get; set; }
 
         public ChargeControl(IUsbCharger usbCharger, IDisplay display) 
         {
             _usbCharger = usbCharger;
             _display = display;
-            usbCharger.CurrentValueEvent += handleNewCurrent;
+            usbCharger.CurrentValueEvent += HandleNewCurrent;
 
 
         }
 
-        private void handleNewCurrent(object? sender, CurrentEventArgs e)
+        private void HandleNewCurrent(object? sender, CurrentEventArgs e)
         {
             NewCurrentDetected(e.Current);
         }
@@ -44,7 +45,7 @@ namespace Ladeskab
             }
         }
 
-        public bool Connected { get; set; }
+
 
 
        public void SimulatePhoneConnected(bool phone)
@@ -61,7 +62,6 @@ namespace Ladeskab
             throw new NotImplementedException();
         }
 
-    
     }
 }
 
