@@ -61,7 +61,7 @@ namespace LadeskabUnitTest
             Assert.That(_uutRecievedEventArgs.DoorStatus, Is.True);
         }
         [Test]
-        public void TestSetDoorStatusEvent_IncorretDoorStatus()
+        public void TestSetDoorStatusEvent_DoorStatus()
         {
             _uut.SetDoorStatus(true);
             _uut.SetDoorStatus(false);
