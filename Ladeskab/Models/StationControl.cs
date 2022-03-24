@@ -14,14 +14,18 @@ namespace Ladeskab
     {
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState
+        public enum LadeskabState
         {
             Available,
             Locked,
             DoorOpen
         };
+        
+        public void SetLadeskabsState(LadeskabState state)
+        {
+            _state= state;
+        }
 
-      
         // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _charger;
@@ -56,6 +60,21 @@ namespace Ladeskab
 
         }
 
+        public void AppendTextLock(int id)
+        {
+            using (var writer = File.AppendText(logFile))
+            {
+                writer.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm") + ": Skab låst med RFID: {0}", id);
+            }
+        }
+
+        public void AppendTextUnlock(int id)
+        {
+            using (var writer = File.AppendText(logFile))
+            {
+                writer.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm") + ": Skab låst op med RFID: {0}", id);
+            }
+        }
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -69,10 +88,7 @@ namespace Ladeskab
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst med RFID: {0}", id);
-                        }
+                        AppendTextLock(id);
 
                         Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
                         _state = LadeskabState.Locked;
@@ -94,10 +110,7 @@ namespace Ladeskab
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        using (var writer = File.AppendText(logFile))
-                        {
-                            writer.WriteLine(DateTime.Now + ": Skab låst op med RFID: {0}", id);
-                        }
+                        AppendTextUnlock(id);
 
                         Console.WriteLine("Tag din telefon ud af skabet og luk døren");
                         _state = LadeskabState.Available;
@@ -132,24 +145,8 @@ namespace Ladeskab
                 default:
                     break;
             }
-            //if (!DoorStatus) //DoorClosed = true, DoorOpened = False
-            //{
-            //    if (LadeskabState.Available == _state)
-            //    {
-            //        _state = LadeskabState.DoorOpen;
-            //        //kald display metode der printer
-            //    }
-
-            //}
-            //else if (DoorStatus)
-            //{
-            //    if (LadeskabState.DoorOpen == _state)
-            //    {
-            //        _state = LadeskabState.Available;
-            //        //kald display metode der printer at dør luk
-            //    }
-            //}
+           
         }
-        // Her mangler de andre trigger handlere
+        
     }
 }
