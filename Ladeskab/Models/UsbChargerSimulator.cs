@@ -1,8 +1,10 @@
-﻿using System;
-using System.Timers;
+﻿using Ladeskab;
 using Ladeskab.Interfaces;
+using System;
+using System.Timers;
 
-namespace UsbSimulator
+
+namespace Ladeskab.Models
 {
     public class UsbChargerSimulator : IUsbCharger
     {

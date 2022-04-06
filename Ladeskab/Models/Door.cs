@@ -4,7 +4,7 @@ namespace Ladeskab
 {
     public class Door : IDoor
     {
-        public event EventHandler<DoorChangedEventArgs> DoorChangedEvent;
+        public event EventHandler<DoorChangedEventArgs>? DoorChangedEvent;
         private bool oldDoorStatus;
         private bool isDoorLocked; //use to check in station control
         public void SetDoorStatus(bool newDoorStatus)

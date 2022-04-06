@@ -10,7 +10,7 @@ namespace LadeskabUnitTest
     public class TestDisplay
     {
         //oprettelse af objekter
-        private Display _uut = null;
+        private Display _uut;
 
 
 

@@ -7,7 +7,12 @@ namespace Ladeskab
     {
         private IUsbCharger _usbCharger;
         private IDisplay _display;
-        public bool Connected { get; set; }
+
+        public bool Connected()
+        {
+            return _usbCharger.Connected;
+            
+        }
 
         public ChargeControl(IUsbCharger usbCharger, IDisplay display) 
         {
@@ -47,10 +52,11 @@ namespace Ladeskab
 
 
 
-       public void SimulatePhoneConnected(bool phone)
-        {
-            Connected = phone;
-        }
+       //public void SimulatePhoneConnected(bool phone)
+       // {
+       //     Connected = phone;
+       //     //skal det være _usbcharger_connected ?? 
+       // }
         public void StartCharge()
         {
             _usbCharger.StartCharge();

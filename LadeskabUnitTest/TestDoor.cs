@@ -67,6 +67,12 @@ namespace LadeskabUnitTest
             _uut.SetDoorStatus(false);
             Assert.That(_uutRecievedEventArgs.DoorStatus, Is.False);
         }
+
+        [Test]
+        public void TestDoorLockWithoutEvent()
+        {
+            //hvordan laves denne her 
+        }
         
     }
 }

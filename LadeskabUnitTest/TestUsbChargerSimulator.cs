@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Threading;
 using Ladeskab;
+using Ladeskab.Models;
 
 namespace LadeskabUnitTest
 {

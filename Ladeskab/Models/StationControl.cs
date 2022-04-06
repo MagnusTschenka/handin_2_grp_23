@@ -14,17 +14,17 @@ namespace Ladeskab
     {
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        public enum LadeskabState
+        private enum LadeskabState  //der er feedback på at denne skal være private - hvordan testes den så?
         {
             Available,
             Locked,
             DoorOpen
         };
         
-        public void SetLadeskabsState(LadeskabState state)
-        {
-            _state= state;
-        }
+        //public void SetLadeskabsState(LadeskabState state)
+        //{
+        //    _state= state;
+        //}
 
         // Her mangler flere member variable
         private LadeskabState _state;
@@ -33,11 +33,11 @@ namespace Ladeskab
         private IDoor _door;
         private IDisplay _displayerDisplay;
         private IRFIDReader _Rfid;
+        private ILogFile _logFile;
 
-        private string logFile = "logfile.txt"; // Navnet på systemets log-fil
 
         // Her mangler constructor
-        public StationControl(IDoor door, IRFIDReader Rfid, IDisplay display, IChargeControl chargeControl)
+        public StationControl(IDoor door, IRFIDReader Rfid, IDisplay display, IChargeControl chargeControl, ILogFile logFile)
         {
             _door = door;
             _Rfid = Rfid;
@@ -46,6 +46,7 @@ namespace Ladeskab
             _charger = chargeControl;
             _displayerDisplay = display;
             _state = LadeskabState.Available;
+            _logFile = logFile;
 
         }
 
@@ -60,21 +61,7 @@ namespace Ladeskab
 
         }
 
-        public void AppendTextLock(int id)
-        {
-            using (var writer = File.AppendText(logFile))
-            {
-                writer.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm") + ": Skab låst med RFID: {0}", id);
-            }
-        }
-
-        public void AppendTextUnlock(int id)
-        {
-            using (var writer = File.AppendText(logFile))
-            {
-                writer.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm") + ": Skab låst op med RFID: {0}", id);
-            }
-        }
+      
 
         // Eksempel på event handler for eventet "RFID Detected" fra tilstandsdiagrammet for klassen
         private void RfidDetected(int id)
@@ -83,19 +70,18 @@ namespace Ladeskab
             {
                 case LadeskabState.Available:
                     // Check for ladeforbindelse
-                    if (_charger.Connected)
+                    if (_charger.Connected())
                     {
                         _door.LockDoor();
                         _charger.StartCharge();
                         _oldId = id;
-                        AppendTextLock(id);
-
-                        Console.WriteLine("Skabet er låst og din telefon lades. Brug dit RFID tag til at låse op.");
+                        _logFile.AppendTextLock(id);
+                        _displayerDisplay.PrintLockedLocker();
                         _state = LadeskabState.Locked;
                     }
                     else
                     {
-                        Console.WriteLine("Din telefon er ikke ordentlig tilsluttet. Prøv igen.");
+                        _displayerDisplay.PrintPhoneConnectionError();
                     }
 
                     break;
@@ -110,14 +96,14 @@ namespace Ladeskab
                     {
                         _charger.StopCharge();
                         _door.UnlockDoor();
-                        AppendTextUnlock(id);
+                        _logFile.AppendTextUnlock(id);
 
-                        Console.WriteLine("Tag din telefon ud af skabet og luk døren");
+                        _displayerDisplay.PrintTakePhoneShutDoor();
                         _state = LadeskabState.Available;
                     }
                     else
                     {
-                        Console.WriteLine("Forkert RFID tag");
+                        _displayerDisplay.PrintRFIDError();
                     }
 
                     break;
@@ -142,8 +128,7 @@ namespace Ladeskab
                         _displayerDisplay.PrintLoadRFID();
                     }
                     break;
-                default:
-                    break;
+                
             }
            
         }

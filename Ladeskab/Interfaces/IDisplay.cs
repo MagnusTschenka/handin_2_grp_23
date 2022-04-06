@@ -12,6 +12,9 @@ namespace Ladeskab.Interfaces
         public void PrintFullyCharged();
         public void PrintCurrentlyCharging();
         public void PrintOverchargeError();
+        public void PrintLockedLocker();
+        public void PrintPhoneConnectionError();
+        public void PrintTakePhoneShutDoor();
     }
 }
 

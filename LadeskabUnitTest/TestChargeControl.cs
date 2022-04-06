@@ -76,19 +76,19 @@ namespace LadeskabUnitTest
         }
 
 
-        [Test]
-        public void SimulatePhoneHasBeenConnected_RecievesTrueArgument()
-        {
-            _uut.SimulatePhoneConnected(true);
-            Assert.That(_uut.Connected, Is.EqualTo(true));
-        }
+        //[Test]
+        //public void SimulatePhoneHasBeenConnected_RecievesTrueArgument()
+        //{
+        //    _uut.SimulatePhoneConnected(true);
+        //    Assert.That(_uut.Connected, Is.EqualTo(true));
+        //}
 
-        [Test]
-        public void SimulatePhoneHasBeenConnected_RecievesFalseArgument()
-        {
-            _uut.SimulatePhoneConnected(false);
-            Assert.That(_uut.Connected, Is.EqualTo(false));
-        }
+        //[Test]
+        //public void SimulatePhoneHasBeenConnected_RecievesFalseArgument()
+        //{
+        //    _uut.SimulatePhoneConnected(false);
+        //    Assert.That(_uut.Connected, Is.EqualTo(false));
+        //}
 
         [Test]
         public void StartChargeCalledFromChargeControl_Recieved_In_UsbCharger()

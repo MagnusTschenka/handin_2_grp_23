@@ -5,7 +5,7 @@ namespace Ladeskab
 {
     public class RFIDReader : IRFIDReader
     {
-        private int ID;
+       
         public event EventHandler<RFIDDetectedEventArgs> RfidEventDetected;
 
 
@@ -23,10 +23,13 @@ namespace Ladeskab
             RfidEventDetected?.Invoke(this, e);
         }
 
-        public void SimulateRFIDCardApplied(int id_)
-        {
-            SetRFIDStatus(id_);
-        }
+
+        // ::   Denne bruges ikke   :: 
+
+        //public void SimulateRFIDCardApplied(int id_)
+        //{
+        //    SetRFIDStatus(id_);
+        //}
 
     }
 }
