@@ -58,6 +58,15 @@ namespace LadeskabUnitTest
         }
 
         [Test]
+        public void TestRfidDetectedAvailableLockDoorFalse()
+        {
+            //_uut.SetLadeskabsState(StationControl.LadeskabState.Available);
+            _fakeChargeControl.Connected().Returns(false);
+            _fakeRFIDRead.RfidEventDetected += Raise.EventWith(new RFIDDetectedEventArgs() { Id = 69 });
+            _fakeDisplay.Received(1).PrintPhoneConnectionError();
+        }
+
+        [Test]
         public void TestRfidDetectedAvailableStartCharge()
         {
             //_uut.SetLadeskabsState(StationControl.LadeskabState.Available);
