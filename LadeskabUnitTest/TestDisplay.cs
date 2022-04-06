@@ -161,6 +161,51 @@ namespace LadeskabUnitTest
         }
 
 
+        [Test]
+        public void PrintLockedLocker()
+        {
+            //arrange
+            var expected = "Skabet er låst og din telefon lades.Brug dit RFID tag til at låse op.\r\n";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintRFIDError();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void PrintPhoneConnectionError()
+        {
+            //arrange
+            var expected = "Din telefon er ikke ordentlig tilsluttet. Prøv igen.\r\n";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintRFIDError();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
+        [Test]
+        public void PrintTakePhoneShutDoor()
+        {
+            //arrange
+            var expected = "Din telefon er ikke ordentlig tilsluttet. Prøv igen.Tag din telefon ud af skabet og luk døren\r\n";
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            //act
+            _uut.PrintRFIDError();
+
+            //assert
+            Assert.AreEqual(expected, stringWriter.ToString());
+        }
+
     }
 }
 
