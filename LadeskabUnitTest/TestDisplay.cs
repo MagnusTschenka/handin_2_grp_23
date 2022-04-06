@@ -162,7 +162,7 @@ namespace LadeskabUnitTest
 
 
         [Test]
-        public void PrintLockedLocker()
+        public void TestPrintLockedLocker()
         {
             //arrange
             var expected = "Skabet er låst og din telefon lades.Brug dit RFID tag til at låse op.\r\n";
@@ -170,14 +170,14 @@ namespace LadeskabUnitTest
             Console.SetOut(stringWriter);
 
             //act
-            _uut.PrintRFIDError();
+            _uut.PrintLockedLocker();
 
             //assert
             Assert.AreEqual(expected, stringWriter.ToString());
         }
 
         [Test]
-        public void PrintPhoneConnectionError()
+        public void TestPrintPhoneConnectionError()
         {
             //arrange
             var expected = "Din telefon er ikke ordentlig tilsluttet. Prøv igen.\r\n";
@@ -185,22 +185,22 @@ namespace LadeskabUnitTest
             Console.SetOut(stringWriter);
 
             //act
-            _uut.PrintRFIDError();
+            _uut.PrintPhoneConnectionError();
 
             //assert
             Assert.AreEqual(expected, stringWriter.ToString());
         }
 
         [Test]
-        public void PrintTakePhoneShutDoor()
+        public void TestPrintTakePhoneShutDoor()
         {
             //arrange
-            var expected = "Din telefon er ikke ordentlig tilsluttet. Prøv igen.Tag din telefon ud af skabet og luk døren\r\n";
+            var expected = "Tag din telefon ud af skabet og luk døren\r\n";
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
 
             //act
-            _uut.PrintRFIDError();
+            _uut.PrintTakePhoneShutDoor();
 
             //assert
             Assert.AreEqual(expected, stringWriter.ToString());

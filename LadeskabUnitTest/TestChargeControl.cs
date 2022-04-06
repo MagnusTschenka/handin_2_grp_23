@@ -104,6 +104,20 @@ namespace LadeskabUnitTest
             _fakeUSBCharger.Received().StopCharge();
         }
 
+
+        [Test]
+        public void TestConnectedMethodTrue()
+        {
+            _fakeUSBCharger.Connected.Returns(true);
+            Assert.That(_uut.Connected(), Is.EqualTo(true));
+        }
+        [Test]
+        public void TestConnectedMethodFalse()
+        {
+            _fakeUSBCharger.Connected.Returns(false);
+            Assert.That(_uut.Connected(), Is.EqualTo(false));
+        }
+
     }
 }
 
