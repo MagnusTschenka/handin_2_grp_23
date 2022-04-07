@@ -49,14 +49,6 @@ namespace Ladeskab
             }
         }
 
-
-
-
-       //public void SimulatePhoneConnected(bool phone)
-       // {
-       //     Connected = phone;
-       //     //skal det være _usbcharger_connected ?? 
-       // }
         public void StartCharge()
         {
             _usbCharger.StartCharge();

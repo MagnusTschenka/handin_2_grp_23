@@ -14,19 +14,14 @@ namespace Ladeskab
     {
 
         // Enum med tilstande ("states") svarende til tilstandsdiagrammet for klassen
-        private enum LadeskabState  //der er feedback på at denne skal være private - hvordan testes den så?
+        private enum LadeskabState  
         {
             Available,
             Locked,
             DoorOpen
         };
         
-        //public void SetLadeskabsState(LadeskabState state)
-        //{
-        //    _state= state;
-        //}
 
-        // Her mangler flere member variable
         private LadeskabState _state;
         private IChargeControl _charger;
         private int _oldId;
@@ -36,7 +31,6 @@ namespace Ladeskab
         private ILogFile _logFile;
 
 
-        // Her mangler constructor
         public StationControl(IDoor door, IRFIDReader Rfid, IDisplay display, IChargeControl chargeControl, ILogFile logFile)
         {
             _door = door;
