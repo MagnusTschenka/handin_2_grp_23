@@ -24,13 +24,6 @@ namespace Ladeskab
         }
 
 
-        // ::   Denne bruges ikke   :: 
-
-        //public void SimulateRFIDCardApplied(int id_)
-        //{
-        //    SetRFIDStatus(id_);
-        //}
-
     }
 }
 

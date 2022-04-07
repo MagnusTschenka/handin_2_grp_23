@@ -18,7 +18,7 @@ namespace Ladeskab
             StationControl stationControl = new StationControl(_Door, _RFIDReader,_display, chargeControl, logfile);
 
             usbChargerSimulator.SimulateConnected(true);
-            //stationControl.SetLadeskabsState(StationControl.LadeskabState.DoorOpen);
+
 
             bool finish = false;
             do
