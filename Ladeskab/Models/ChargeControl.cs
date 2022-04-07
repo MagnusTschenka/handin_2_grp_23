@@ -34,11 +34,11 @@ namespace Ladeskab
             {
                 return;
             }
-            else if(0< current && current <=5)
+            else if( current <=5) //0< current &&
             {
                 _display.PrintFullyCharged();
             }
-            else if(5 < current && current <=500)
+            else if( current <=500) //5 < current &&
             {
                 _display.PrintCurrentlyCharging();
             }
